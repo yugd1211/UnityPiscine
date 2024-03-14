@@ -24,6 +24,11 @@ public class PlayerController : MonoBehaviour
         {
             _isJumping = false;
         }
+        if (other.transform.CompareTag("Floor"))
+        {
+            Debug.Log("Game Over!!!!!");
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnMove(InputAction.CallbackContext context)
