@@ -45,7 +45,10 @@ public class PlayerController : MonoBehaviour
         if (!_gameManager.isLive)
             return;
         if (other.transform.CompareTag("Floor"))
+        {
+            
             _isJumping = false;
+        }
     }
 
     public void Jump()

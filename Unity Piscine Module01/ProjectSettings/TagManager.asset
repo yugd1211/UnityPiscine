@@ -11,22 +11,22 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - WhiteFloor
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - ThomasFloor
+  - ClaireFloor
+  - JamesFloor
+  - JohnFloor
+  - LauraFloor
+  - SarahFloor
+  - PlayerThomas
+  - PlayerClaire
+  - PlayerJames
+  - PlayerJohn
+  - PlayerLaura
+  - PlayerSarah
+  - Exit
   - 
   - 
   - 

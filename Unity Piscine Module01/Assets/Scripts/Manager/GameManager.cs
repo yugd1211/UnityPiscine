@@ -9,7 +9,8 @@ public class GameManager : Singleton<GameManager>
 {
 	public bool isLive;
 	public int currStage;
-	public GameObject[] Players;
+	public int maxStage;
+	public PlayerController[] Players;
 	public Outline[] Outlines;
 	public GameObject uiVictory;
 	public GameObject displayKeysParent;
@@ -17,8 +18,16 @@ public class GameManager : Singleton<GameManager>
 
 	protected override void AwakeInit()
 	{
-		Debug.Log(SceneManager.sceneCount);
+		SceneManager.sceneLoaded += OnSceneLoaded;
+		Init();
+	}
+	private void Init()
+	{
+		Players = FindObjectsOfType<PlayerController>();
+		uiVictory = FindObjectOfType<WinnerPanel>(true).gameObject;
+		uiVictory.SetActive(false);
 		isLive = true;
+		Time.timeScale = 1;
 		currStage = 0;
 	}
 	
@@ -33,8 +42,11 @@ public class GameManager : Singleton<GameManager>
 			text.text = "Alpha " + (i + 1);
 		}
 	}
-	private void FixedUpdate()
+
+	public void CheckOutlineAligned()
 	{
+		if (!isLive)
+			return;
 		bool exit = true;
 		foreach (Outline t in Outlines)
 		{
@@ -47,16 +59,30 @@ public class GameManager : Singleton<GameManager>
 
 	private void Victory()
 	{
+		Debug.Log("Victory!");
 		uiVictory.SetActive(true);
 		Time.timeScale = 0;
 		isLive = false;
 	}
-
-	public void nextStage()
+	
+	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (SceneManager.sceneCount < currStage)
+		Debug.Log("OnSceneLoaded");
+		Init();
+		// SceneManager.sceneLoaded -= OnSceneLoaded;
+	}
+
+	public void NextStage()
+	{
+		if (currStage >= maxStage)
+		{
 			SceneManager.LoadScene(currStage++);
+		}
 		else
-			Debug.Log("GAME END");
+		{
+			Debug.Log(" 1stage");
+			// Init();
+			SceneManager.LoadScene(0);
+		}
 	}
 }
