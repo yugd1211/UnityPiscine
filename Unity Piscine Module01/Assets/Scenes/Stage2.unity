@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -375,14 +375,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2135075058}
     m_Modifications:
-    - target: {fileID: 1999271589, guid: d8b0e297a547e4c8d86692d16f384ba0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1999271589, guid: d8b0e297a547e4c8d86692d16f384ba0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3943202029864873840, guid: d8b0e297a547e4c8d86692d16f384ba0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1095,10 +1087,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2135075058}
     m_Modifications:
-    - target: {fileID: 960689230, guid: 469f0e1ef73d84f07a0fe4b61882e3fb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3943202029864873840, guid: 469f0e1ef73d84f07a0fe4b61882e3fb, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1109,7 +1097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3943202029864873840, guid: 469f0e1ef73d84f07a0fe4b61882e3fb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.66
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3943202029864873840, guid: 469f0e1ef73d84f07a0fe4b61882e3fb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1876,7 +1864,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.17364816, y: -0, z: -0, w: 0.9848078}
-  m_LocalPosition: {x: -31.181627, y: 3.5897086, z: -13.527538}
+  m_LocalPosition: {x: -29.131626, y: 3.0197084, z: -10.527538}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3567,10 +3555,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2135075058}
     m_Modifications:
-    - target: {fileID: 1870049843, guid: c1d378c8b8ee24e9ebeb3990cface3c2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3943202029864873840, guid: c1d378c8b8ee24e9ebeb3990cface3c2, type: 3}
       propertyPath: m_RootOrder
       value: 1
