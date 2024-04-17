@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Cinemachine;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class InputManager : MonoBehaviour
 {
@@ -21,11 +17,11 @@ public class InputManager : MonoBehaviour
 	private void Start()
 	{
 		_gameManager = GameManager.Instance;
-		players = _gameManager.Players;
-		cameras = new CinemachineVirtualCamera[_gameManager.Players.Length];
-		for (int i = 0; i < _gameManager.Players.Length; i++)
+		players = _gameManager.players;
+		cameras = new CinemachineVirtualCamera[_gameManager.players.Length];
+		for (int i = 0; i < _gameManager.players.Length; i++)
 		{
-			cameras[i] = _gameManager.Players[i].GetComponentInChildren<CinemachineVirtualCamera>();
+			cameras[i] = _gameManager.players[i].GetComponentInChildren<CinemachineVirtualCamera>();
 		}
 	}
 	public void OnMove(InputAction.CallbackContext context)
@@ -82,6 +78,9 @@ public class InputManager : MonoBehaviour
 			return;
 		if (!context.performed)
 			return;
-		_gameManager.NextStage();
+		if (_gameManager.isDead)
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		else
+			_gameManager.NextStage();
 	}
 }

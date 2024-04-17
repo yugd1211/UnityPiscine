@@ -1,45 +1,53 @@
-using Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : Core.Singleton<GameManager>
 {
 	public bool isLive;
-	public int currStage;
-	public int maxStage;
-	public PlayerController[] Players;
-	public Outline[] Outlines;
+	public bool isDead;
+	public PlayerController[] players;
+	public Outline[] outlines;
 	public GameObject uiVictory;
+	public GameObject uiDefeat;
 	public GameObject displayKeysParent;
 	public GameObject displayKeyPrefab;
 
 	protected override void AwakeInit()
 	{
-		SceneManager.sceneLoaded += OnSceneLoaded;
 		Init();
 	}
 	private void Init()
 	{
-		Players = FindObjectsOfType<PlayerController>();
-		uiVictory = FindObjectOfType<WinnerPanel>(true).gameObject;
+		players = FindObjectsOfType<PlayerController>();
+		outlines = FindObjectsOfType<Outline>();
 		uiVictory.SetActive(false);
+		uiDefeat.SetActive(false);
 		isLive = true;
+		isDead = false;
 		Time.timeScale = 1;
-		currStage = 0;
 	}
-	
+
 	private void Start()
 	{
-		for (int i = 0; i < Players.Length; i++)
+		for (int i = 0; i < players.Length; i++)
 		{
 			GameObject key = Instantiate(displayKeyPrefab, displayKeysParent.transform, true);
 			Image image = key.GetComponent<Image>(); 
 			TextMeshProUGUI text = key.GetComponentInChildren<TextMeshProUGUI>(); 
-			image.color = text.color = Players[i].GetComponent<MeshRenderer>().material.color;
+			image.color = text.color = players[i].GetComponent<MeshRenderer>().material.color;
 			text.text = "Alpha " + (i + 1);
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		foreach (PlayerController player in players)
+		{
+			if (!player.isDead)
+				continue;
+			Defeat();
 		}
 	}
 
@@ -48,7 +56,7 @@ public class GameManager : Singleton<GameManager>
 		if (!isLive)
 			return;
 		bool exit = true;
-		foreach (Outline t in Outlines)
+		foreach (Outline t in outlines)
 		{
 			if (!t.isAligned) exit = false;
 		}
@@ -59,30 +67,29 @@ public class GameManager : Singleton<GameManager>
 
 	private void Victory()
 	{
-		Debug.Log("Victory!");
 		uiVictory.SetActive(true);
 		Time.timeScale = 0;
 		isLive = false;
 	}
-	
-	void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	private void Defeat()
 	{
-		Debug.Log("OnSceneLoaded");
-		Init();
-		// SceneManager.sceneLoaded -= OnSceneLoaded;
+		uiDefeat.SetActive(true);
+		Time.timeScale = 0;
+		isDead = true;
+		isLive = false;
 	}
 
 	public void NextStage()
 	{
-		if (currStage >= maxStage)
-		{
-			SceneManager.LoadScene(currStage++);
-		}
+		if (SceneManager.GetActiveScene().name == "Stage1")
+			SceneManager.LoadScene("Stage2");
+		else if (SceneManager.GetActiveScene().name == "Stage2")
+			SceneManager.LoadScene("Stage3");
+		else if (SceneManager.GetActiveScene().name == "Stage3")
+			SceneManager.LoadScene("Stage4");
+		else if (SceneManager.GetActiveScene().name == "Stage4")
+			SceneManager.LoadScene("Stage5");
 		else
-		{
-			Debug.Log(" 1stage");
-			// Init();
-			SceneManager.LoadScene(0);
-		}
+			SceneManager.LoadScene("Stage1");
 	}
 }

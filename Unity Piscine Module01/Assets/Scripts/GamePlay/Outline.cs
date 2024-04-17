@@ -1,23 +1,11 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Outline : MonoBehaviour
 {
 	public Character target;
-	public bool isAligned
-	{
-		get => isAligned;
-		set
-		{
-			isAligned = value;
-			_gameManager.CheckOutlineAligned();
-		}
-	}
-
+	public bool isAligned;
 	private GameManager _gameManager;
-
+	
 	private void Awake()
 	{
 		isAligned = false;
@@ -26,18 +14,19 @@ public class Outline : MonoBehaviour
 	{
 		_gameManager = GameManager.Instance;
 	}
-
+	
 	private void OnTriggerEnter(Collider other)
 	{
 		if (!other.CompareTag("Player") || other.gameObject.GetComponent<PlayerController>().me != target)
 			return;
 		isAligned = true;
+		_gameManager.CheckOutlineAligned();
 	}
 	private void OnTriggerExit(Collider other)
 	{
 		if (!other.CompareTag("Player") || other.gameObject.GetComponent<PlayerController>().me != target)
 			return;
 		isAligned = false;
+		_gameManager.CheckOutlineAligned();
 	}
-	
 }

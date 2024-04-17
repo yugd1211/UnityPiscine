@@ -5,7 +5,6 @@ namespace Core
 	public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 	{
 		private static T _instance;
-		private static bool _onceInit = false;
 
 		public static T Instance
 		{
@@ -26,11 +25,7 @@ namespace Core
 		}
 		public void Awake()
 		{
-			if (_onceInit)
-				return;
-			DontDestroyOnLoad(gameObject);
 			AwakeInit();
-			_onceInit = true;
 		}
 
 		protected virtual void AwakeInit()

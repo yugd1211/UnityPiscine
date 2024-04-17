@@ -1,18 +1,11 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public enum Character
 {
     Thomas,
-    Chris,
     John,
     Claire,
-    Laura,
-    James,
-    Sarah,
 }
 
 public class PlayerController : MonoBehaviour
@@ -24,41 +17,53 @@ public class PlayerController : MonoBehaviour
     public int moveSpeed;
     
     private Rigidbody _rigid;
-    private Coroutine _currCoroutine;
-    private bool _isJumping;
+    private Coroutine _currCoroutine; 
+    public bool isJumping;
+    public bool isDead;
     private GameManager _gameManager;
     private readonly WaitForFixedUpdate _updateCycle = new WaitForFixedUpdate();
 
-    private void Awake()
+    private void Awake()    
     {
         _rigid = GetComponent<Rigidbody>();
-        _isJumping = false;
+        isJumping = false;
         _currCoroutine = null;
+        isDead = false;
     }
     private void Start()
     {
         _gameManager = GameManager.Instance;
     }
 
+    private void FixedUpdate()
+    {
+        if (transform.position.y <= -11) 
+            Die();
+    }
     private void OnCollisionEnter(Collision other)
     {
         if (!_gameManager.isLive)
             return;
         if (other.transform.CompareTag("Floor"))
         {
-            
-            _isJumping = false;
+            isJumping = false;
         }
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        gameObject.SetActive(false);
     }
 
     public void Jump()
     {
         if (!_gameManager.isLive)
             return;
-        if (_isJumping)
+        if (isJumping)
             return;
         _rigid.velocity = new Vector3(_rigid.velocity.x, moveSpeed, 0);
-        _isJumping = true;
+        isJumping = true;
     }
     
     public void Move(Vector3 input, bool isOn)
