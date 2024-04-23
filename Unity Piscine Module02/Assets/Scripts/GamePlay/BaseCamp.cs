@@ -8,9 +8,9 @@ public class BaseCamp : MonoBehaviour
 	{
 		HP = GetComponent<HP>();
 		HP.DeadAction += FindObjectOfType<UIManager>().UIUpdate;
+		HP.DeadAction += PoolManager.Instance.AllDisable;
 		HP.DeadAction += Pause;
 	}
-	
 
 	private void Pause()
 	{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public partial class PoolManager : MonoBehaviour
@@ -23,6 +24,22 @@ public partial class PoolManager : MonoBehaviour
         Debug.Log($"No pool type = {typeof(T)}.");
         return null;
     }
+
+    public void AllDisable()
+    {
+        foreach (KeyValuePair<Type, object> poolEntry in _pools)
+        {
+            // 각 풀의 타입에 대한 MethodInfo를 얻어옵니다.
+            // 'DisableAll' 메서드를 호출하기 위해선, 런타임에 풀의 제네릭 타입을 얻어와야 합니다.
+            MethodInfo disableAllMethod = poolEntry.Value.GetType().GetMethod("DisableAll");
+            if (disableAllMethod != null)
+            {
+                // 'DisableAll' 메서드를 호출합니다.
+                disableAllMethod.Invoke(poolEntry.Value, null);
+            }
+        }
+    }
+    
 }
 
 public partial class PoolManager
@@ -83,5 +100,13 @@ public class ObjectPool<T> where T : Component
         T newObject = GameObject.Instantiate(_prefab, _parentTransform).GetComponent<T>();
         _pool.Add(newObject);
         newObject.gameObject.SetActive(false);
+    }
+    
+    public void DisableAll()
+    {
+        foreach (T item in _pool)
+        {
+            item.gameObject.SetActive(false);
+        }
     }
 }

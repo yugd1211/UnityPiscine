@@ -23,12 +23,12 @@ public class UIManager : MonoBehaviour
 	public void UIUpdate()
 	{
 		UIHP.GetComponent<TextMeshProUGUI>().text = $"HP : {_baseCamp.HP.currentHp}";
+		if (!_baseCamp.HP.IsAlive)
+			Dead();
 	}
 
 	private void FixedUpdate()
 	{
-		if (!_baseCamp.HP.IsAlive)
-			Dead();
 		UIUpdate();
 	}
 }

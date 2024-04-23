@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
 
 	private void Dead()
 	{
-		Debug.Log($"Enemy Dead {gameObject.name}");
+		// Debug.Log($"Enemy Dead {gameObject.name}");
 		gameObject.SetActive(false);
 	}
 	

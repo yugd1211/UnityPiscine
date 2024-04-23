@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Turret2
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1825195303863594754, guid: 0fc9d441e9afe4bd9900a55d66eab093, type: 3}
-  rate: 1
-  damage: 0.1
+  rate: 0.1
+  damage: 0.01

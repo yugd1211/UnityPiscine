@@ -28,9 +28,7 @@ public class Bullet : MonoBehaviour
 		{
 			gameObject.SetActive(false);
 		}
-		// if (transform.position == target)
-		// 	gameObject.SetActive(false);
 		Vector2 dir = (target - transform.position).normalized;
-		gameObject.transform.Translate(dir * Time.fixedDeltaTime);
+		gameObject.transform.Translate(dir * Time.fixedDeltaTime * 2);
 	}
 }
