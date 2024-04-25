@@ -9,7 +9,7 @@ public class HP : MonoBehaviour
         public float currentHp { get; private set; }
         
         public void Increment()
-        { 
+        {
             currentHp = Mathf.Clamp(currentHp + 1, 0, maxHP);
         }
         

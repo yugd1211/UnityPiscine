@@ -24,7 +24,7 @@ public class TurretController : MonoBehaviour
 	private void FixedUpdate()
 	{
 		_timer += Time.fixedDeltaTime;
-		if (_timer < turret.rate)
+		if (_timer < turret.rate / 2)
 			return;
 		_timer = 0;
 		if (_scanner.nearestTarget == null)

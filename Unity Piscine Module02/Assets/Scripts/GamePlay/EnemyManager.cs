@@ -26,7 +26,8 @@ public class EnemyManager : MonoBehaviour
 			return;
 		_timer = 0;
 		EnemyController enemy = _spawner.Spawn<EnemyController>();
-		enemy.gameObject.SetActive(true);
 		enemy.target = target;
+		// enemy.HP
+		enemy.gameObject.SetActive(true);
 	}
 }
