@@ -65,15 +65,7 @@ public partial class GameManager : MonoBehaviour
 			GameOver();
 	}
 
-	public void Pause()
-	{
-		timer.timeScale = 0;
-	}
-	
-	public void Resume()
-	{
-		timer.timeScale = 1;
-	}
+
 
 	public void IncrementEnergy(int amount = 1)
 	{

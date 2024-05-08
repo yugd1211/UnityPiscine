@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -33,14 +30,14 @@ public class UIPauseMenu : MonoBehaviour
 
     public void DisplayMenu()
     {
-        GameManager.Instance.Pause();
+        GameManager.Instance.timer.GamePause();
         _background.SetActive(true);
         _panel.SetActive(true);
     }
     
     public void CloseMenu()
     {
-        GameManager.Instance.Resume();
+        GameManager.Instance.timer.GameResume();
         _background.SetActive(false);
         _panel.SetActive(false);
     }

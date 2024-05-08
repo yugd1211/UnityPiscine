@@ -6,6 +6,7 @@ public class Timer : MonoBehaviour
 	public int timeScale;
 	public float time;
 	public TextMeshProUGUI text;
+	private int prevTime;
 
 	private void Awake()
 	{
@@ -15,6 +16,17 @@ public class Timer : MonoBehaviour
 	public void GameOneSpeed()
 	{
 		timeScale = 1;
+	}
+	public void GamePause()
+	{
+		prevTime = timeScale; 
+		timeScale = 0;
+	}
+
+	public void GameResume()
+	{
+		timeScale = prevTime;
+		prevTime = 0;
 	}
 	
 	public void GameDoubleSpeed()
