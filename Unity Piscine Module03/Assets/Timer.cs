@@ -6,11 +6,12 @@ public class Timer : MonoBehaviour
 	public int timeScale;
 	public float time;
 	public TextMeshProUGUI text;
-	private int prevTime;
+	private int _prevTime;
 
 	private void Awake()
 	{
 		text = GetComponent<TextMeshProUGUI>();
+		_prevTime = 1;
 	}
 
 	public void GameOneSpeed()
@@ -19,14 +20,15 @@ public class Timer : MonoBehaviour
 	}
 	public void GamePause()
 	{
-		prevTime = timeScale; 
+		_prevTime = timeScale; 
 		timeScale = 0;
 	}
 
 	public void GameResume()
 	{
-		timeScale = prevTime;
-		prevTime = 0;
+		if (_prevTime == 0)
+			_prevTime = 1;
+		timeScale = _prevTime;
 	}
 	
 	public void GameDoubleSpeed()
