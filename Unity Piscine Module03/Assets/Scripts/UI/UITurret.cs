@@ -18,7 +18,6 @@ public class UITurret : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDo
 	
 	private GameObject _draggingGO; 
 	private Transform _draggedOverTurretBox;
-	private IPointerUpHandler _pointerUpHandlerImplementation;
 
 	private void Awake()
 	{
@@ -56,6 +55,13 @@ public class UITurret : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDo
 		Destroy(_draggingGO);
 	}
 	
+	public void DestroyDraggedOverTurretBoxGo()
+	{
+		if (!_draggedOverTurretBox)
+			return;
+		_draggedOverTurretBox.GetComponent<TurretBox>().DestroyTurret();
+	}
+	
 
 	public void OnPointerDown(PointerEventData eventData)
 	{
@@ -69,6 +75,8 @@ public class UITurret : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDo
 		if (!isSufficient)
 			return;
 		descriptionPanel.SetActive(false);
+		if (!_draggingGO)
+			return;
 		_draggingGO.transform.position = eventData.position;
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(eventData.position);
             
@@ -99,16 +107,17 @@ public class UITurret : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerDo
 		RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("TurretBox"));
 		if (hit.collider != null)
 		{
-			if (_gameManager.DecrementEnergy(soTurret.energy))
-				hit.transform.GetComponent<TurretBox>().ConfirmTurretPlacement();
+			if (hit.transform.GetComponent<TurretBox>().turret)
+				if (_gameManager.DecrementEnergy(soTurret.energy))
+					hit.transform.GetComponent<TurretBox>().ConfirmTurretPlacement();
 		}
-		Destroy(_draggingGO);
-	}
+		DestroyDraggingGo();
+    }
 	
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		Destroy(_draggingGO);
-	}
+		DestroyDraggingGo();
+    }
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{

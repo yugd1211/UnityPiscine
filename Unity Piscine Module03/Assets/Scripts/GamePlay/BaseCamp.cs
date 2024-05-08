@@ -7,7 +7,6 @@ public class BaseCamp : MonoBehaviour
 	private void Awake()
 	{
 		HP = GetComponent<HP>();
-		HP.DeadAction += FindObjectOfType<UIManager>().UIUpdate;
 		HP.DeadAction += Pause;
 	}
 

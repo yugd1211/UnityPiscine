@@ -24,7 +24,10 @@ public class UIPauseMenu : MonoBehaviour
         {
             DisplayMenu();
             foreach (UITurret turret in UITurrets)
+            {
                 turret.DestroyDraggingGo();
+                turret.DestroyDraggedOverTurretBoxGo();
+            }
         }
     }
 
